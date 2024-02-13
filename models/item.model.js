@@ -6,6 +6,8 @@ const itemSchema = new mongoose.Schema({
   purchasePrice: Number,
   salePrice: Number,
   inStock: Number,
+  newPrice: Number,
+  expiry: String,
 });
 
 const Item = mongoose.model("Item", itemSchema);
