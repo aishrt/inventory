@@ -3,6 +3,7 @@ const router = express.Router();
 const csv = require("csv-parser");
 const { uploadItemsFromCSV } = require("../controllers/item.controller");
 const multer = require("multer");
+const { itemController } = require("../controllers");
 
 // Configure multer to handle file uploads
 const storage = multer.memoryStorage();
@@ -20,5 +21,9 @@ router.post("/upload-csv", upload.single("filePath"), (req, res) => {
   // Sending response to the client
   res.status(200).json({ message: "CSV file upload initiated" });
 });
+
+router.get("/get-items", itemController.getItemList);
+router.put("/update/:id", itemController.updateItem);
+router.delete("/delete/:id", itemController.deleteItem);
 
 module.exports = router;
