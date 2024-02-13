@@ -9,6 +9,7 @@ const invoiceSchema = new mongoose.Schema({
   products: [
     {
       productName: String,
+      productCode: String,
       qty: Number,
       rate: Number,
       amount: Number,
