@@ -111,6 +111,44 @@ const getItemList = catchAsync(async (req, res) => {
   }
 });
 
+// -------------------- Add single Item ------------------
+const addItem = catchAsync(async (req, res) => {
+  try {
+    const { itemName, itemCode } = req.body;
+
+    // Check if the item name already exists
+    const existingItem = await Item.findOne({ itemName });
+    if (existingItem) {
+      return res.status(400).json({
+        status: "400",
+        message: "Item  with same name already exists!",
+        data: existingItem,
+      });
+    }
+    const existingItemCode = await Item.findOne({ itemCode });
+    if (existingItemCode) {
+      return res.status(400).json({
+        status: "400",
+        message: "Item with same item code already exists!",
+        data: existingItem,
+      });
+    }
+    const createdItem = await Item.create(req.body);
+
+    return res.status(200).json({
+      status: "200",
+      message: "Item added successfully!",
+      data: createdItem,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: "500",
+      message: "An error occurred while adding the item!",
+      error: error.message,
+    });
+  }
+});
+
 // -------------------- Update Item ------------------
 const updateItem = catchAsync(async (req, res) => {
   try {
@@ -156,4 +194,5 @@ module.exports = {
   getItemList,
   updateItem,
   deleteItem,
+  addItem,
 };

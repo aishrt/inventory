@@ -22,6 +22,7 @@ router.post("/upload-csv", upload.single("filePath"), (req, res) => {
   res.status(200).json({ message: "CSV file upload initiated" });
 });
 
+router.post("/add", itemController.addItem);
 router.get("/get-items", itemController.getItemList);
 router.put("/update/:id", itemController.updateItem);
 router.delete("/delete/:id", itemController.deleteItem);
